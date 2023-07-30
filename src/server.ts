@@ -1,8 +1,7 @@
 import { app } from "./app";
-
-const port = 3333
+import { env } from "./env";
 
 app.listen({
   host: '0.0.0.0',
-  port
-}).then(() => console.log(`🚀 HTTP Server Running on port: ${port}`))
+  port: env.PORT
+}).then(() => console.log(`🚀 HTTP Server Running on port: ${env.PORT}`))
