@@ -1,4 +1,6 @@
-# Regras da aplicação
+# API - FIND A FRIEND
+
+## Regras da aplicação
 
 ## RFs (Requisitos funcionais)
 
@@ -17,3 +19,9 @@
 - [ ] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
 - [ ] Todos os filtros, além da cidade, são opcionais
 - [ ] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
+
+## RNFs (Requisitos não-funcionais)
+
+- [ ] A senha do usuário precisa estar criptografada
+- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
+- [ ] O usuário deve ser identificado por um JWT (JSON Web Token)
