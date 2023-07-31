@@ -1,7 +1,10 @@
 import { Organization } from '@prisma/client'
-import { OrganizationsRepository } from '../repositories/organizations-repository'
 import { hash } from 'bcryptjs'
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
+import { OrganizationsRepository } from '@/repositories/organizations-repository'
+import cepApi from 'cep-promise'
+import { CepApiError } from './errors/cep-api-error'
+import { z } from 'zod'
 
 interface CreateOrganizationRequest {
   name: string
@@ -15,7 +18,7 @@ interface CreateOrganizationResponse {
   organization: Organization
 }
 
-export class CreateOrgUseCase {
+export class CreateOrganizationUseCase {
   constructor(private organizationsRepository: OrganizationsRepository) {}
 
   async execute({
@@ -35,6 +38,10 @@ export class CreateOrgUseCase {
       throw new OrganizationAlreadyExistsError()
     }
 
+    const { city, state } = await cepApi(cep).catch((error) => {
+      throw new CepApiError(error.message)
+    })
+
     const organization = await this.organizationsRepository.create({
       name,
       email,
@@ -42,8 +49,8 @@ export class CreateOrgUseCase {
       address,
       whatsapp_number: whatsappNumber,
       password_hash,
-      city: 'none',
-      state: 'none',
+      city,
+      state,
     })
 
     return { organization }
