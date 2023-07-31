@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  password_hash   String
+  name            String
+  cep             String
+  address         String
+  city            String
+  state           String
+  whatsapp_number String
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  pets Pet[]
+
+  @@map("organizations")
+}
+
+enum Age {
+  PUPPY
+  ADULT
+  OLD
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum EnergyLevel {
+  VERY_LOW
+  LOW
+  MODERATE
+  HIGH
+  VERY_HIGH
+}
+
+enum IndependenceLevel {
+  LOW
+  MODERATE
+  HIGH
+}
+
+model Pet {
+  id                 String            @id @default(uuid())
+  name               String
+  about              String
+  environment        String
+  age                Age
+  size               Size
+  energy_level       EnergyLevel
+  independence_level IndependenceLevel
+  images_url         Json[]
+  requirements       Json[]
+  created_at         DateTime          @default(now())
+  updated_at         DateTime          @updatedAt
+
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
+
+  @@map("pets")
+}
