@@ -4,7 +4,6 @@ import { OrganizationAlreadyExistsError } from './errors/organization-already-ex
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import cepApi from 'cep-promise'
 import { CepApiError } from './errors/cep-api-error'
-import { z } from 'zod'
 
 interface CreateOrganizationRequest {
   name: string
