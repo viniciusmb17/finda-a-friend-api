@@ -1,7 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest'
 import { CreatePetUseCase } from './create-pet'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
-import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { hash } from 'bcryptjs'
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 
