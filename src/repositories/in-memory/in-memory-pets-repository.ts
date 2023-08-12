@@ -1,16 +1,41 @@
 import { Pet, Prisma } from '@prisma/client'
-import { PetsRepository } from '../pets-repository'
+import { FilterOptionsType, PetsRepository } from '../pets-repository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
 
-  async findManyByOrganizationsIds(organizationsIds: string[]) {
-    const pets = this.items.filter((pet) =>
-      organizationsIds.includes(pet.organization_id),
-    )
+  async findManyByOrganizationsIdsAndFilter(
+    organizationsIds: string[],
+    filterOptions: FilterOptionsType,
+    page: number,
+  ) {
+    return this.items
+      .filter((item) => organizationsIds.includes(item.organization_id))
+      .filter((item) => {
+        let match = true
 
-    return pets
+        if (filterOptions?.age) {
+          match = match && item.age === filterOptions?.age
+        }
+
+        if (filterOptions?.energyLevel) {
+          match = match && item.energy_level === filterOptions?.energyLevel
+        }
+
+        if (filterOptions?.independenceLevel) {
+          match =
+            match &&
+            item.independence_level === filterOptions?.independenceLevel
+        }
+
+        if (filterOptions?.size) {
+          match = match && item.size === filterOptions?.size
+        }
+
+        return match
+      })
+      .slice((page - 1) * 20, page * 20)
   }
 
   async create(data: Prisma.PetUncheckedCreateInput) {
