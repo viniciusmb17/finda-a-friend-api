@@ -1,8 +1,6 @@
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 import { describe, expect, it, beforeEach } from 'vitest'
-import { compare, hash } from 'bcryptjs'
-import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
-import { CepApiError } from './errors/cep-api-error'
+import { hash } from 'bcryptjs'
 import { AuthenticateUseCase } from './authenticate'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 

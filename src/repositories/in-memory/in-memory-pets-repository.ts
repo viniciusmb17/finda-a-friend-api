@@ -5,6 +5,14 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
 
+  async findManyByOrganizationsIds(organizationsIds: string[]) {
+    const pets = this.items.filter((pet) =>
+      organizationsIds.includes(pet.organization_id),
+    )
+
+    return pets
+  }
+
   async create(data: Prisma.PetUncheckedCreateInput) {
     const pet: Pet = {
       id: randomUUID(),
