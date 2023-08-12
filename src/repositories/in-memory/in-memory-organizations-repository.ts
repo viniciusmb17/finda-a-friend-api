@@ -7,6 +7,12 @@ export class InMemoryOrganizationsRepository
 {
   public items: Organization[] = []
 
+  async findManyByCity(city: string) {
+    const organizations = this.items.filter((item) => item.city === city)
+
+    return organizations
+  }
+
   async findById(id: string) {
     const organization = this.items.find((item) => item.id === id)
 
