@@ -11,7 +11,7 @@ describe('Authenticate (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to authenticate', async () => {
+  it('should be able to refresh a token', async () => {
     await request(app.server).post('/organizations').send({
       name: 'John Doe',
       password: '123456',
@@ -22,14 +22,24 @@ describe('Authenticate (e2e)', () => {
       whatsappNumber: '99 99999-9999',
     })
 
-    const response = await request(app.server).post('/sessions').send({
+    const authReponse = await request(app.server).post('/sessions').send({
       email: 'johndoe@example.com',
       password: '123456',
     })
+
+    const cookies = authReponse.get('Set-Cookie')
+
+    const response = await request(app.server)
+      .patch('/token/refresh')
+      .set('Cookie', cookies)
+      .send()
 
     expect(response.statusCode).toEqual(200)
     expect(response.body).toEqual({
       token: expect.any(String),
     })
+    expect(response.get('Set-Cookie')).toEqual([
+      expect.stringContaining('refreshToken='),
+    ])
   })
 })
