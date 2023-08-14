@@ -1,5 +1,4 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { FetchPetsByOrganizationsIdsUseCase } from './fetch-pets-by-organizations-ids'
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 import { hash } from 'bcryptjs'
 import { FetchOrganizationsByCityUseCase } from './fetch-organizations-by-city'
@@ -49,17 +48,15 @@ describe('Fetch Organizations By City Use Case', () => {
       state: 'state',
     })
 
-    const organizationsFromCityA = await organizationsRepository.findManyByCity(
-      'cityA',
-    )
-
-    const organizationsFromCityB = await organizationsRepository.findManyByCity(
-      'cityB',
-    )
-
-    const organizationsFromCityC = await organizationsRepository.findManyByCity(
-      'cityC',
-    )
+    const { organizations: organizationsFromCityA } = await sut.execute({
+      city: 'cityA',
+    })
+    const { organizations: organizationsFromCityB } = await sut.execute({
+      city: 'cityB',
+    })
+    const { organizations: organizationsFromCityC } = await sut.execute({
+      city: 'cityC',
+    })
 
     expect(organizationsFromCityA).toHaveLength(2)
     expect(organizationsFromCityA).toEqual([
