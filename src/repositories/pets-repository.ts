@@ -15,6 +15,7 @@ export type FilterOptionsType = {
 }
 
 export interface PetsRepository {
+  findById(id: string): Promise<Pet | null>
   findManyByOrganizationsIdsAndFilter(
     organizationsIds: string[],
     filter: FilterOptionsType,
