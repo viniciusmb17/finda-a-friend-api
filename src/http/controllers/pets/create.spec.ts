@@ -1,7 +1,6 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { prisma } from '@/lib/prisma'
 import { createAndAuthenticateOrganization } from '@/utils/test/create-and-authenticate-organization'
 
 describe('Create (e2e)', () => {
