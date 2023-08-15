@@ -138,7 +138,7 @@ describe('Filter (e2e)', () => {
     expect(responseFilterOnlyByCity.statusCode).toEqual(200)
   })
 
-  it.only('should not be able to filter pets without city', async () => {
+  it('should not be able to filter pets without city', async () => {
     const orgTestB = await prisma.organization.create({
       data: {
         name: 'Org Test B',
