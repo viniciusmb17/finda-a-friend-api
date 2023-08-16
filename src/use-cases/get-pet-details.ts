@@ -2,20 +2,20 @@ import { PetsRepository } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-interface GetPetUseCaseRequest {
+interface GetPetDetailsUseCaseRequest {
   petId: string
 }
 
-interface GetPetUseCaseResponse {
+interface GetPetDetailsUseCaseResponse {
   pet: Pet | null
 }
 
-export class GetPetUseCase {
+export class GetPetDetailsUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
   async execute({
     petId,
-  }: GetPetUseCaseRequest): Promise<GetPetUseCaseResponse> {
+  }: GetPetDetailsUseCaseRequest): Promise<GetPetDetailsUseCaseResponse> {
     const pet = await this.petsRepository.findById(petId)
 
     if (!pet) {

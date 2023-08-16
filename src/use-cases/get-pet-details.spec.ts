@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { hash } from 'bcryptjs'
-import { GetPetUseCase } from './get-pet'
+import { GetPetDetailsUseCase } from './get-pet-details'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
@@ -8,14 +8,14 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error'
 let petsRepository: InMemoryPetsRepository
 let organizationsRepository: InMemoryOrganizationsRepository
 
-let sut: GetPetUseCase // sut => System Under Test
+let sut: GetPetDetailsUseCase // sut => System Under Test
 
 describe('Get Pet Use Case', () => {
   beforeAll(() => {
     petsRepository = new InMemoryPetsRepository()
     organizationsRepository = new InMemoryOrganizationsRepository()
 
-    sut = new GetPetUseCase(petsRepository) // sut => System Under Test
+    sut = new GetPetDetailsUseCase(petsRepository) // sut => System Under Test
   })
 
   it('should be able to get pet by id', async () => {
@@ -32,10 +32,10 @@ describe('Get Pet Use Case', () => {
 
     const { id: petId } = await petsRepository.create({
       name: 'Bob',
-      about: '',
+      about: 'about info',
       age: 'ADULT',
       energy_level: 'HIGH',
-      environment: '',
+      environment: 'env info',
       independence_level: 'HIGH',
       size: 'LARGE',
       images_url: ['url/path/test'],
