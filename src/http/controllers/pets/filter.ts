@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 export async function filter(request: FastifyRequest, reply: FastifyReply) {
   const filterPetsQuerySchema = z.object({
-    city: z.string(),
+    city: z.string().min(3),
     age: z.enum(['PUPPY', 'ADULT', 'OLD']).optional(),
     energy_level: z
       .enum(['VERY_LOW', 'LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'])
