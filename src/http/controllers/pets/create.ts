@@ -4,9 +4,9 @@ import { z } from 'zod'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
   const createPetBodySchema = z.object({
-    name: z.string(),
-    about: z.string(),
-    environment: z.string(),
+    name: z.string().min(3),
+    about: z.string().min(3),
+    environment: z.string().min(3),
     age: z.enum(['PUPPY', 'ADULT', 'OLD']),
     size: z.enum(['SMALL', 'MEDIUM', 'LARGE']),
     energy_level: z.enum(['VERY_LOW', 'LOW', 'MODERATE', 'HIGH', 'VERY_HIGH']),
