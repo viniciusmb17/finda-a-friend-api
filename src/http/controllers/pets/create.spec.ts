@@ -20,10 +20,10 @@ describe('Create (e2e)', () => {
       .set('Authorization', 'Bearer ' + token)
       .send({
         name: 'Bob',
-        about: '',
+        about: 'about info',
         age: 'ADULT',
         energy_level: 'HIGH',
-        environment: '',
+        environment: 'env info',
         independence_level: 'HIGH',
         size: 'LARGE',
         images_url: ['url/path/test'],
